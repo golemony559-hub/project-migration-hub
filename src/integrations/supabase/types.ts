@@ -997,6 +997,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_free_resource: { Args: { p_guide_id: string }; Returns: string }
+      confirm_order_payment: {
+        Args: {
+          p_amount_cents: number
+          p_currency_code: string
+          p_order_id: string
+          p_payload: Json
+          p_provider: string
+          p_provider_event_id: string
+        }
+        Returns: string
+      }
+      create_pending_order: {
+        Args: { p_guide_id: string; p_license_type: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1004,8 +1020,90 @@ export type Database = {
         }
         Returns: boolean
       }
+      mark_order_unpaid: {
+        Args: {
+          p_order_id: string
+          p_provider: string
+          p_provider_event_id: string
+          p_status: string
+        }
+        Returns: string
+      }
+      moderate_feedback: {
+        Args: { p_feedback_id: string; p_reason: string; p_status: string }
+        Returns: undefined
+      }
       notify_user: {
         Args: { _body: string; _link: string; _title: string; _user_id: string }
+        Returns: undefined
+      }
+      record_ledger_adjustment: {
+        Args: {
+          p_amount_cents: number
+          p_creator_id: string
+          p_currency_code: string
+          p_note: string
+        }
+        Returns: string
+      }
+      record_payout: {
+        Args: {
+          p_amount_cents: number
+          p_creator_id: string
+          p_currency_code: string
+          p_method_note: string
+          p_reference: string
+        }
+        Returns: string
+      }
+      restore_entitlement: {
+        Args: { p_entitlement_id: string; p_reason: string }
+        Returns: undefined
+      }
+      review_guide_version: {
+        Args: {
+          p_decision: string
+          p_reason: string
+          p_rubric: Json
+          p_specialist_reviewed: boolean
+          p_version_id: string
+        }
+        Returns: undefined
+      }
+      revoke_entitlement: {
+        Args: { p_entitlement_id: string; p_reason: string }
+        Returns: undefined
+      }
+      set_guide_listing: {
+        Args: { p_guide_id: string; p_listed: boolean; p_reason?: string }
+        Returns: undefined
+      }
+      start_guide_revision: { Args: { p_guide_id: string }; Returns: string }
+      submit_guide_version: {
+        Args: { p_version_id: string }
+        Returns: undefined
+      }
+      update_commercial_settings: {
+        Args: {
+          p_earnings_hold_days: number
+          p_notes: string
+          p_platform_fee_bps: number
+          p_processing_fee_bps: number
+          p_processing_fee_fixed_cents: number
+        }
+        Returns: undefined
+      }
+      update_support_case: {
+        Args: {
+          p_case_id: string
+          p_resolution: string
+          p_resolution_action: string
+          p_status: string
+        }
+        Returns: undefined
+      }
+      withdraw_guide_version: {
+        Args: { p_version_id: string }
         Returns: undefined
       }
       write_audit: {
