@@ -48,3 +48,13 @@
 - [ ] Paid products: emailed download link expires after 6 hours — built; waits on paid checkout (payment provider not chosen)
 - [x] Creator dashboard shows purchases and downloads per product
 - [x] Notify the creator (in-app + email) on a product's first download
+
+## Stand-out features (Nov 10 2026, from "features that could make KnowHow stand out")
+- [ ] Goal-based discovery: "What do you want to accomplish?" goals that recommend guides, playbooks, templates, toolkits
+- [ ] Expert profiles: background, years, specialisations, achievements, qualifications, products, buyer reviews; admin-granted identity/experience/qualification labels; public creator page
+- [ ] Playbook builder: sections with files, YouTube/Vimeo videos, links, text and tools in one product
+- [ ] Interactive tools: ready-made tools with creator defaults + creator-built custom calculators; buyers use them inside Doerly
+- [ ] Quality & originality review: automatic check on submit + feedback for creator, shown to admin reviewer
+- [ ] Personal library: purchased, saved, notes, progress, collections, product updates; email purchases attach on sign-in
+- [ ] Ask the Creator (anyone): button on product page; creator emailed + dashboard notifications menu; answer emailed to asker, optional public Q&A
+- [ ] Each industry/category has its own text colour for tags and labels
