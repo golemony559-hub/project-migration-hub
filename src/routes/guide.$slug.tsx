@@ -89,6 +89,7 @@ export const Route = createFileRoute("/guide/$slug")({
 function GuideDetailPage() {
   const guide = Route.useLoaderData() as GuideListing;
   const creatorProfile = parseCreatorProfile(guide.creator_bio ?? "");
+  const isSample = Boolean("sample" in guide && guide.sample);
   const thumbs = useThumbnailUrls([guide.thumbnail_path]);
   const thumbUrl = guide.thumbnail_path ? thumbs[guide.thumbnail_path] : undefined;
   const gains = (guide.outcomes ?? "")
