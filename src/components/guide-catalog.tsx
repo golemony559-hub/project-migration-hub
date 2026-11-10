@@ -91,7 +91,9 @@ export function GuideCatalog({
           ))}
         </div>
         <span className="result-count">
-          <SlidersHorizontal aria-hidden="true" /> {filteredListings.length} resources
+          <SlidersHorizontal aria-hidden="true" /> {filteredListings.length}{" "}
+          {filteredListings.length === 1 ? "resource" : "resources"}
+          {query.trim() ? ` matching “${query.trim()}”` : ""}
         </span>
       </div>
 
