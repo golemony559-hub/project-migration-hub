@@ -50,6 +50,13 @@
       "when": 1794304332464,
       "tag": "0006_email_download_links",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794305897691,
+      "tag": "0007_standout_features",
+      "breakpoints": true
     }
   ]
 }

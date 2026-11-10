@@ -10,6 +10,7 @@ import {
 import { sendReviewEmail } from "./review-emails.server";
 import { isCreatorOnboarded } from "./creator-status";
 import { siteOrigin } from "./site-origin.server";
+import { runQualityCheckFor } from "./quality-check.server";
 
 const validateVersion = (input: { versionId: string }) => {
   if (typeof input?.versionId !== "string" || !/^[0-9a-f-]{36}$/i.test(input.versionId)) {
@@ -62,6 +63,12 @@ export const sendSubmissionEmails = createServerFn({ method: "POST" })
           )
         : Promise.resolve({ sent: false as const, error: "No email on account" }),
     ]);
+    // Automatic quality & originality check for the reviewer and the creator (best-effort).
+    try {
+      await runQualityCheckFor(v.id);
+    } catch (e) {
+      console.error("quality check failed", e);
+    }
     return { admin: admin.sent, creator: creator.sent };
   });
 

@@ -24,6 +24,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardQuestionsRouteImport } from './routes/dashboard.questions'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
 import { Route as GetTokenRouteImport } from './routes/get.$token'
@@ -107,6 +108,11 @@ const DashboardProfileRoute = DashboardProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardQuestionsRoute = DashboardQuestionsRouteImport.update({
+  id: '/questions',
+  path: '/questions',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/questions': typeof DashboardQuestionsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/get/$token': typeof GetTokenRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/questions': typeof DashboardQuestionsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/get/$token': typeof GetTokenRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/questions': typeof DashboardQuestionsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/get/$token': typeof GetTokenRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/dashboard/analytics'
     | '/dashboard/profile'
+    | '/dashboard/questions'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/get/$token'
@@ -256,6 +266,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/dashboard/analytics'
     | '/dashboard/profile'
+    | '/dashboard/questions'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/get/$token'
@@ -280,6 +291,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/dashboard/analytics'
     | '/dashboard/profile'
+    | '/dashboard/questions'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/get/$token'
@@ -414,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardProfileRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/questions': {
+      id: '/dashboard/questions'
+      path: '/questions'
+      fullPath: '/dashboard/questions'
+      preLoaderRoute: typeof DashboardQuestionsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/settings': {
       id: '/dashboard/settings'
       path: '/settings'
@@ -469,6 +488,7 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteChildren {
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardQuestionsRoute: typeof DashboardQuestionsRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardTransactionsRoute: typeof DashboardTransactionsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
@@ -480,6 +500,7 @@ interface DashboardRouteChildren {
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
   DashboardProfileRoute: DashboardProfileRoute,
+  DashboardQuestionsRoute: DashboardQuestionsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardTransactionsRoute: DashboardTransactionsRoute,
   DashboardIndexRoute: DashboardIndexRoute,

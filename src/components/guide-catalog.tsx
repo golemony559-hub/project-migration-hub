@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import { useThumbnailUrls } from "@/hooks/use-thumbnail-urls";
+import { categoryToneClass } from "@/lib/category-colors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -82,6 +83,7 @@ export function GuideCatalog({
             <Button
               key={item}
               variant={category === item ? "default" : "outline"}
+              className={item === "All knowledge" ? undefined : categoryToneClass(item)}
               size="sm"
               onClick={() => setCategory(item)}
               aria-pressed={category === item}
@@ -163,7 +165,7 @@ function GuideRow({
       )}
       <div className="guide-row-main">
         <div className="guide-meta">
-          <span>{guide.category}</span>
+          <span className={categoryToneClass(guide.category)}>{guide.category}</span>
           <span>{guide.format}</span>
           {guide.sample && <span className="sample-tag">Example only</span>}
         </div>

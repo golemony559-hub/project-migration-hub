@@ -62,6 +62,15 @@ export const quickStart: { title: string; text: string }[] = [
 
 export const helpSections: HelpSection[] = [
   {
+    id: "answering-questions",
+    title: "Answer reader questions",
+    summary: "Help readers understand your products before they buy.",
+    blocks: [
+      { kind: "p", text: "Open Questions in your dashboard to read and answer questions. Your answer is emailed to the reader. You can edit an answer later; saving it sends another email." },
+      { kind: "p", text: "Choose ‘Also show this question and answer publicly on the product page’ to share it with other readers. Public questions show only the reader’s first name, never their email. Use Show publicly or Hide publicly to change visibility later." },
+    ],
+  },
+  {
     id: "getting-started",
     title: "Getting started",
     summary: "Create your account, confirm your email and understand how Doerly works.",
