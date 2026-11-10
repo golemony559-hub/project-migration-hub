@@ -29,6 +29,13 @@
       "when": 1794302689528,
       "tag": "0003_0003_prd_workflow_functions",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794302742328,
+      "tag": "0004_0004_creator_dashboard_products",
+      "breakpoints": true
     }
   ]
 }

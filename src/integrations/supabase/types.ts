@@ -316,6 +316,7 @@ export type Database = {
           summary: string
           tags: string[]
           team_price_cents: number | null
+          thumbnail_path: string | null
           title: string
           updated_at: string
           version_number: number
@@ -357,6 +358,7 @@ export type Database = {
           summary?: string
           tags?: string[]
           team_price_cents?: number | null
+          thumbnail_path?: string | null
           title?: string
           updated_at?: string
           version_number?: number
@@ -398,6 +400,7 @@ export type Database = {
           summary?: string
           tags?: string[]
           team_price_cents?: number | null
+          thumbnail_path?: string | null
           title?: string
           updated_at?: string
           version_number?: number
@@ -450,6 +453,7 @@ export type Database = {
           summary: string
           tags: string[]
           team_price_cents: number | null
+          thumbnail_path: string | null
           title: string
           updated_at: string
         }
@@ -483,6 +487,7 @@ export type Database = {
           summary: string
           tags?: string[]
           team_price_cents?: number | null
+          thumbnail_path?: string | null
           title: string
           updated_at?: string
         }
@@ -516,6 +521,7 @@ export type Database = {
           summary?: string
           tags?: string[]
           team_price_cents?: number | null
+          thumbnail_path?: string | null
           title?: string
           updated_at?: string
         }
@@ -792,6 +798,7 @@ export type Database = {
         Row: {
           avatar_url: string | null
           bio: string
+          coffee_url: string
           created_at: string
           display_name: string
           id: string
@@ -800,6 +807,7 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           bio?: string
+          coffee_url?: string
           created_at?: string
           display_name?: string
           id: string
@@ -808,6 +816,7 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           bio?: string
+          coffee_url?: string
           created_at?: string
           display_name?: string
           id?: string
@@ -1012,6 +1021,18 @@ export type Database = {
       create_pending_order: {
         Args: { p_guide_id: string; p_license_type: string }
         Returns: string
+      }
+      creator_product_stats: {
+        Args: never
+        Returns: {
+          avg_rating: number
+          claims: number
+          downloads: number
+          feedback_count: number
+          guide_id: string
+          paid_orders: number
+          revenue_cents: number
+        }[]
       }
       has_role: {
         Args: {
