@@ -716,3 +716,29 @@
 .goal-recs-group li a { color: var(--market-ocean); font-weight: 700; }
 .goal-recs-meta { color: var(--muted-foreground); font-size: 12px; }
 @media (max-width: 640px) { .goal-recs-group li { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Ask the Creator and creator notifications */
+.ask-trigger { width: 100%; }
+.ask-form { display: grid; gap: 1rem; }
+.ask-form label { display: grid; gap: .4rem; }
+.ask-form input:not([type="checkbox"]), .ask-form textarea { width: 100%; border: 1px solid var(--border); border-radius: .4rem; background: var(--market-paper); color: var(--foreground); padding: .65rem; }
+.ask-form textarea { resize: vertical; }
+.ask-form small, .ask-row time { color: var(--muted-foreground); }
+.ask-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.ask-row { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.ask-row h2 { font-size: 1.1rem; font-weight: 600; }
+.ask-row p { margin: .65rem 0; }
+.ask-copy { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ask-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.ask-form .ask-checkbox { display: flex; align-items: flex-start; gap: .65rem; }
+.ask-checkbox input { margin-top: .3rem; }
+.ask-public { margin-top: 2rem; }
+.notif-bell { position: relative; flex-shrink: 0; }
+.notif-badge { position: absolute; top: -.15rem; right: -.3rem; border-radius: 1rem; padding: 0 .3rem; font-size: .65rem; background: var(--market-ocean); color: var(--market-paper); }
+.notif-menu { width: min(25rem, calc(100vw - 2rem)); max-height: 75vh; overflow-y: auto; }
+.notif-heading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.notif-menu ul { list-style: none; margin: 0; padding: 0; }
+.notif-item { width: 100%; display: grid; gap: .35rem; text-align: left; padding: .9rem 0; border-top: 1px solid var(--border); overflow-wrap: anywhere; }
+.notif-item time, .notif-state { font-size: .75rem; color: var(--muted-foreground); }
+.notif-unread { border-left: 3px solid var(--market-teal); padding-left: .7rem; }
+.notif-unread strong { color: var(--market-ocean); }
