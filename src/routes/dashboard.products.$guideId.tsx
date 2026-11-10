@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowLeft,
+  Download,
   Eye,
   EyeOff,
   ExternalLink,
@@ -9,6 +10,7 @@ import {
   LoaderCircle,
   Pencil,
   Send,
+  ShoppingBag,
   Trash2,
   Undo2,
 } from "lucide-react";
