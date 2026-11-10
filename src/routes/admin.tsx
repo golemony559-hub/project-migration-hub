@@ -6,6 +6,14 @@ import { listUsersWithRoles, type AdminUserRow } from "@/lib/admin-users.functio
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useIsAdmin } from "@/hooks/use-is-admin";
 import { supabase } from "@/integrations/supabase/client";
 import { useThumbnailUrls } from "@/hooks/use-thumbnail-urls";
@@ -324,6 +332,51 @@ function CaseCard({ item: c, onDone }: { item: SupportCase; onDone: () => void }
         </p>
       )}
     </article>
+  );
+}
+
+function UsersTable() {
+  const fetchUsers = useServerFn(listUsersWithRoles);
+  const [rows, setRows] = useState<AdminUserRow[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    fetchUsers()
+      .then(setRows)
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : "Could not load users."));
+  }, [fetchUsers]);
+  if (error) return <p className="app-muted">{error}</p>;
+  if (!rows) return <LoaderCircle className="animate-spin" />;
+  if (!rows.length) return <p className="app-muted">No accounts yet.</p>;
+  const date = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString() : "Never");
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Person</TableHead>
+          <TableHead>Roles</TableHead>
+          <TableHead>Products</TableHead>
+          <TableHead>Joined</TableHead>
+          <TableHead>Last sign-in</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((u) => (
+          <TableRow key={u.id}>
+            <TableCell>
+              <div>{u.name || "—"}</div>
+              <div className="app-muted">
+                {u.email}
+                {u.confirmed ? "" : " · email not verified"}
+              </div>
+            </TableCell>
+            <TableCell>{u.roles.join(", ")}</TableCell>
+            <TableCell>{u.products}</TableCell>
+            <TableCell>{date(u.joinedAt)}</TableCell>
+            <TableCell>{date(u.lastSignInAt)}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }
 

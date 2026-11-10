@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import type { User } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { isCreatorOnboarded } from "./creator-status";
 import { roleLabels, type RoleLabel } from "./user-roles";
@@ -25,8 +26,7 @@ export const listUsersWithRoles = createServerFn({ method: "GET" })
     if (!isAdmin) throw new Error("Admins only.");
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const users: Awaited<ReturnType<typeof supabaseAdmin.auth.admin.listUsers>>["data"]["users"] =
-      [];
+    const users: User[] = [];
     for (let page = 1; page <= 20; page++) {
       const { data, error } = await supabaseAdmin.auth.admin.listUsers({ page, perPage: 1000 });
       if (error) throw new Error("Could not load users.");
