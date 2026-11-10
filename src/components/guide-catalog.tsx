@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import { useThumbnailUrls } from "@/hooks/use-thumbnail-urls";
@@ -26,6 +26,7 @@ export function GuideCatalog({
   showAdvancedFilters = true,
 }: GuideCatalogProps) {
   const [query, setQuery] = useState(initialQuery);
+  useEffect(() => setQuery(initialQuery), [initialQuery]);
   const [category, setCategory] = useState("All knowledge");
   const [format, setFormat] = useState("All formats");
   const [price, setPrice] = useState("Any price");
