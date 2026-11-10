@@ -1,13 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Download, LockKeyhole, Flag, Star } from "lucide-react";
+import { LockKeyhole, Flag, Mail, MailCheck, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MarketplaceAuthDialog } from "@/components/marketplace-auth-dialog";
 import { useMarketplaceAuth } from "@/hooks/use-marketplace-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { getResourceDownload } from "@/lib/resource-access.functions";
+import { requestResourceByEmail } from "@/lib/resource-delivery.functions";
+import { PAID_LINK_HOURS } from "@/lib/download-links";
 import type { Database } from "@/integrations/supabase/types";
 
 type Feedback = Database["public"]["Tables"]["resource_feedback"]["Row"];
@@ -44,22 +47,10 @@ function useEntitlement(guideId: string) {
 }
 
 export function GuideAccessPanel({ guideId, priceCents, isSample }: { guideId: string; priceCents: number; isSample: boolean }) {
-  const { user, entitlement, refresh } = useEntitlement(guideId);
+  const { user, entitlement } = useEntitlement(guideId);
   const download = useDownload();
-  const [authOpen, setAuthOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
-
-  async function claim() {
-    if (!user) return setAuthOpen(true);
-    setBusy(true);
-    setMsg("");
-    const { error } = await supabase.rpc("claim_free_resource", { p_guide_id: guideId });
-    setBusy(false);
-    if (error) return setMsg(error.message);
-    await refresh();
-    setMsg("Added to your library.");
-  }
 
   async function doDownload() {
     if (!entitlement) return;
@@ -80,32 +71,120 @@ export function GuideAccessPanel({ guideId, priceCents, isSample }: { guideId: s
       </Button>
     );
 
+  if (priceCents > 0)
+    return (
+      <>
+        <Button className="purchase-unavailable" disabled>
+          <LockKeyhole aria-hidden="true" /> Paid checkout coming soon
+        </Button>
+        <p className="purchase-note">
+          No payment will be taken yet. After paying, you’ll get a download link by email that works for{" "}
+          {PAID_LINK_HOURS} hours.
+        </p>
+      </>
+    );
+
   return (
     <>
-      {entitlement ? (
-        <>
-          <Button disabled={busy} onClick={() => void doDownload()}>
-            <Download aria-hidden="true" /> Download
-          </Button>
-          <p className="purchase-note">
-            In <Link to="/library">your library</Link>.
-          </p>
-        </>
-      ) : priceCents === 0 ? (
-        <Button disabled={busy} onClick={() => void claim()}>
-          <Download aria-hidden="true" /> Get it free
-        </Button>
-      ) : (
-        <>
-          <Button className="purchase-unavailable" disabled>
-            <LockKeyhole aria-hidden="true" /> Paid checkout coming soon
-          </Button>
-          <p className="purchase-note">No payment will be taken yet.</p>
-        </>
+      <GetByEmailForm guideId={guideId} defaultName={displayNameOf(user)} defaultEmail={user?.email ?? ""} />
+      {entitlement && (
+        <p className="purchase-note">
+          <span>
+            Already yours —{" "}
+            <button type="button" className="link-button" disabled={busy} onClick={() => void doDownload()}>
+              download now
+            </button>{" "}
+            or open <Link to="/library">your library</Link>.
+          </span>
+        </p>
       )}
       {msg && <p className="purchase-note" role="status">{msg}</p>}
-      <MarketplaceAuthDialog open={authOpen} onOpenChange={setAuthOpen} />
     </>
+  );
+}
+
+function displayNameOf(user: { user_metadata?: Record<string, unknown> } | null) {
+  const meta = user?.user_metadata ?? {};
+  const name = meta["full_name"] ?? meta["name"] ?? meta["display_name"];
+  return typeof name === "string" ? name : "";
+}
+
+function GetByEmailForm({ guideId, defaultName, defaultEmail }: { guideId: string; defaultName: string; defaultEmail: string }) {
+  const request = useServerFn(requestResourceByEmail);
+  const [name, setName] = useState(defaultName);
+  const [email, setEmail] = useState(defaultEmail);
+  const [website, setWebsite] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [sentTo, setSentTo] = useState("");
+
+  useEffect(() => {
+    setName((n) => n || defaultName);
+    setEmail((e) => e || defaultEmail);
+  }, [defaultName, defaultEmail]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    setBusy(true);
+    try {
+      const result = await request({ data: { guideId, name, email, website } });
+      if (result.ok) setSentTo(result.email);
+      else setError(result.error);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+    }
+    setBusy(false);
+  }
+
+  if (sentTo)
+    return (
+      <div className="get-sent" role="status">
+        <MailCheck aria-hidden="true" />
+        <div>
+          <strong>Check your inbox</strong>
+          <p>
+            We emailed your download link to {sentTo}. It can take a minute — check your spam folder too.
+          </p>
+          <button type="button" className="link-button" onClick={() => setSentTo("")}>
+            Use a different email
+          </button>
+        </div>
+      </div>
+    );
+
+  return (
+    <form className="get-form" onSubmit={(e) => void submit(e)} noValidate>
+      <label>
+        Your name
+        <Input value={name} onChange={(e) => setName(e.target.value)} maxLength={100} autoComplete="name" required />
+      </label>
+      <label>
+        Email
+        <Input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          maxLength={255}
+          autoComplete="email"
+          required
+        />
+      </label>
+      <input
+        className="get-form-trap"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+        name="website"
+      />
+      <Button type="submit" disabled={busy || !name.trim() || !email.trim()}>
+        <Mail aria-hidden="true" /> {busy ? "Sending…" : "Email me the download link"}
+      </Button>
+      {error && <p className="get-form-error" role="alert">{error}</p>}
+      <p className="purchase-note">Free. We’ll email you a personal link to download the file.</p>
+    </form>
   );
 }
 
