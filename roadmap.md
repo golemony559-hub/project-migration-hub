@@ -42,9 +42,9 @@
 - [x] Detailed creator help centre page with search, step-by-step guides, FAQ and troubleshooting
 
 ## Email delivery & stats (Nov 10 2026)
-- [ ] Send all app emails from doerly@myjoyfullday.site
-- [ ] Home page search finds every matching resource (title, summary, tags, outcomes…) and lets visitors browse results
-- [ ] "Get it" asks for name + email and emails a download link (no instant download button)
-- [ ] Paid products: emailed download link expires after 6 hours (goes live with paid checkout)
-- [ ] Creator dashboard shows purchases and downloads per product
-- [ ] Notify the creator (in-app + email) on a product's first download
+- [x] Send all app emails from doerly@myjoyfullday.site
+- [x] Home page search finds every matching resource (title, summary, tags, outcomes…) and lets visitors browse results
+- [x] "Get it" asks for name + email and emails a download link (no instant download button)
+- [ ] Paid products: emailed download link expires after 6 hours — built; waits on paid checkout (payment provider not chosen)
+- [x] Creator dashboard shows purchases and downloads per product
+- [x] Notify the creator (in-app + email) on a product's first download
