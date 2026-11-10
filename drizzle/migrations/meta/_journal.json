@@ -8,6 +8,13 @@
       "when": 1794302440256,
       "tag": "0000_0000_marketplace_profiles_guides",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794302514496,
+      "tag": "0001_0001_prd_roles_catalog_versions",
+      "breakpoints": true
     }
   ]
 }

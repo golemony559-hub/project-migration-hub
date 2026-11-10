@@ -14,59 +14,429 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_invites: {
+        Row: {
+          created_at: string
+          email: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+        }
+        Relationships: []
+      }
+      audit_log: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: Json
+          entity_id: string | null
+          entity_type: string
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      categories: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          is_active: boolean
+          name: string
+          risk_guidance: string
+          risk_sensitive: boolean
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          risk_guidance?: string
+          risk_sensitive?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          risk_guidance?: string
+          risk_sensitive?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      commercial_settings: {
+        Row: {
+          earnings_hold_days: number
+          id: number
+          notes: string
+          paid_checkout_enabled: boolean
+          platform_fee_bps: number
+          processing_fee_bps: number
+          processing_fee_fixed_cents: number
+          rates_approved: boolean
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          earnings_hold_days?: number
+          id?: number
+          notes?: string
+          paid_checkout_enabled?: boolean
+          platform_fee_bps?: number
+          processing_fee_bps?: number
+          processing_fee_fixed_cents?: number
+          rates_approved?: boolean
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          earnings_hold_days?: number
+          id?: number
+          notes?: string
+          paid_checkout_enabled?: boolean
+          platform_fee_bps?: number
+          processing_fee_bps?: number
+          processing_fee_fixed_cents?: number
+          rates_approved?: boolean
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      guide_reviews: {
+        Row: {
+          created_at: string
+          decision: string
+          escalation_required: boolean
+          guide_id: string
+          id: string
+          reason: string
+          reviewer_id: string
+          rubric: Json
+          specialist_reviewed: boolean
+          version_id: string
+        }
+        Insert: {
+          created_at?: string
+          decision: string
+          escalation_required?: boolean
+          guide_id: string
+          id?: string
+          reason: string
+          reviewer_id: string
+          rubric?: Json
+          specialist_reviewed?: boolean
+          version_id: string
+        }
+        Update: {
+          created_at?: string
+          decision?: string
+          escalation_required?: boolean
+          guide_id?: string
+          id?: string
+          reason?: string
+          reviewer_id?: string
+          rubric?: Json
+          specialist_reviewed?: boolean
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guide_reviews_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "guide_reviews_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      guide_versions: {
+        Row: {
+          access_format: string
+          accuracy_confirmed_at: string | null
+          ai_assistance: string
+          ai_disclosure: string
+          audience: string
+          category: string
+          contents: string
+          created_at: string
+          creator_id: string
+          currency_code: string
+          description: string
+          file_mime: string | null
+          file_name: string | null
+          file_path: string | null
+          file_size_bytes: number | null
+          format: string
+          guide_id: string
+          how_to_use: string
+          id: string
+          limitations: string
+          outcomes: string
+          preview_text: string
+          price_cents: number
+          reading_time_minutes: number | null
+          reference_content: string
+          review_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          rights_confirmed_at: string | null
+          risk_sensitive: boolean
+          sources_note: string
+          state: string
+          submitted_at: string | null
+          summary: string
+          tags: string[]
+          team_price_cents: number | null
+          title: string
+          updated_at: string
+          version_number: number
+        }
+        Insert: {
+          access_format?: string
+          accuracy_confirmed_at?: string | null
+          ai_assistance?: string
+          ai_disclosure?: string
+          audience?: string
+          category?: string
+          contents?: string
+          created_at?: string
+          creator_id: string
+          currency_code?: string
+          description?: string
+          file_mime?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size_bytes?: number | null
+          format?: string
+          guide_id: string
+          how_to_use?: string
+          id?: string
+          limitations?: string
+          outcomes?: string
+          preview_text?: string
+          price_cents?: number
+          reading_time_minutes?: number | null
+          reference_content?: string
+          review_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          rights_confirmed_at?: string | null
+          risk_sensitive?: boolean
+          sources_note?: string
+          state?: string
+          submitted_at?: string | null
+          summary?: string
+          tags?: string[]
+          team_price_cents?: number | null
+          title?: string
+          updated_at?: string
+          version_number?: number
+        }
+        Update: {
+          access_format?: string
+          accuracy_confirmed_at?: string | null
+          ai_assistance?: string
+          ai_disclosure?: string
+          audience?: string
+          category?: string
+          contents?: string
+          created_at?: string
+          creator_id?: string
+          currency_code?: string
+          description?: string
+          file_mime?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size_bytes?: number | null
+          format?: string
+          guide_id?: string
+          how_to_use?: string
+          id?: string
+          limitations?: string
+          outcomes?: string
+          preview_text?: string
+          price_cents?: number
+          reading_time_minutes?: number | null
+          reference_content?: string
+          review_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          rights_confirmed_at?: string | null
+          risk_sensitive?: boolean
+          sources_note?: string
+          state?: string
+          submitted_at?: string | null
+          summary?: string
+          tags?: string[]
+          team_price_cents?: number | null
+          title?: string
+          updated_at?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guide_versions_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["name"]
+          },
+          {
+            foreignKeyName: "guide_versions_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       guides: {
         Row: {
+          access_format: string
+          ai_assistance: string
+          ai_disclosure: string
+          audience: string
           category: string
+          contents: string
           created_at: string
           creator_id: string
           currency_code: string
           description: string
           file_path: string | null
           format: string
+          how_to_use: string
           id: string
+          limitations: string
+          live_updated_at: string | null
+          outcomes: string
+          preview_text: string
           price_cents: number
+          published_at: string | null
+          published_version_id: string | null
           reading_time_minutes: number | null
+          risk_sensitive: boolean
           slug: string
+          sources_note: string
           status: string
           summary: string
+          tags: string[]
+          team_price_cents: number | null
           title: string
           updated_at: string
         }
         Insert: {
+          access_format?: string
+          ai_assistance?: string
+          ai_disclosure?: string
+          audience?: string
           category: string
+          contents?: string
           created_at?: string
           creator_id: string
           currency_code?: string
           description?: string
           file_path?: string | null
           format?: string
+          how_to_use?: string
           id?: string
+          limitations?: string
+          live_updated_at?: string | null
+          outcomes?: string
+          preview_text?: string
           price_cents?: number
+          published_at?: string | null
+          published_version_id?: string | null
           reading_time_minutes?: number | null
+          risk_sensitive?: boolean
           slug: string
+          sources_note?: string
           status?: string
           summary: string
+          tags?: string[]
+          team_price_cents?: number | null
           title: string
           updated_at?: string
         }
         Update: {
+          access_format?: string
+          ai_assistance?: string
+          ai_disclosure?: string
+          audience?: string
           category?: string
+          contents?: string
           created_at?: string
           creator_id?: string
           currency_code?: string
           description?: string
           file_path?: string | null
           format?: string
+          how_to_use?: string
           id?: string
+          limitations?: string
+          live_updated_at?: string | null
+          outcomes?: string
+          preview_text?: string
           price_cents?: number
+          published_at?: string | null
+          published_version_id?: string | null
           reading_time_minutes?: number | null
+          risk_sensitive?: boolean
           slug?: string
+          sources_note?: string
           status?: string
           summary?: string
+          tags?: string[]
+          team_price_cents?: number | null
           title?: string
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "guides_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["name"]
+          },
           {
             foreignKeyName: "guides_creator_id_fkey"
             columns: ["creator_id"]
@@ -74,7 +444,44 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "guides_published_version_fkey"
+            columns: ["published_version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          link: string | null
+          read_at: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          link?: string | null
+          read_at?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          link?: string | null
+          read_at?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -103,15 +510,55 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      notify_user: {
+        Args: { _body: string; _link: string; _title: string; _user_id: string }
+        Returns: undefined
+      }
+      write_audit: {
+        Args: {
+          _action: string
+          _details: Json
+          _entity_id: string
+          _entity_type: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -238,6 +685,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
