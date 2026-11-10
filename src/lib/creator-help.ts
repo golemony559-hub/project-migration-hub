@@ -241,7 +241,7 @@ export const helpSections: HelpSection[] = [
       },
       {
         kind: "p",
-        text: "Your file is stored privately. Nobody can open it while it’s a draft or in review except you and the reviewing admin. After approval, only people who have claimed or bought it can download it, through a short-lived secure link.",
+        text: "Your file is stored privately. Nobody can open it while it’s a draft or in review except you and the reviewing admin. After approval, buyers enter their name and email on your page and we email them a personal download link (links for paid products stop working after 6 hours).",
       },
       { kind: "link", label: "Add a new product", to: "/dashboard/products/new" },
     ],
@@ -292,7 +292,7 @@ export const helpSections: HelpSection[] = [
         rows: [
           [
             "Free",
-            "Anyone with a verified account can get it. Readers see a “Buy me a coffee” button on your page if you’ve added a tip link.",
+            "Anyone can get it by entering their name and email — we email them the download link. Readers see a “Buy me a coffee” button on your page if you’ve added a tip link.",
           ],
           [
             "Paid",
@@ -424,8 +424,8 @@ export const helpSections: HelpSection[] = [
         kind: "list",
         items: [
           "Your product page shows the name, thumbnail, overview, description, benefits, type, price and your creator profile.",
-          "Buyers sign in and press Get (free) to add it to their Library. They must have a verified email first.",
-          "Downloads use secure links that expire after a short time, so files can’t be passed around through a shared link.",
+          "Buyers enter their name and email and press “Email me the download link”. No account is needed; signed-in buyers also find it in their Library.",
+          "Each buyer gets a personal link by email. Links for paid products stop working after 6 hours. You get a notice and an email the first time your product is downloaded.",
           "Buyers who have your product can leave feedback. Reviews are moderated before they appear.",
           "Buyers can report a broken file or a big mismatch with the listing. Doerly support will contact you, and you’re expected to help fix it.",
         ],
@@ -446,7 +446,8 @@ export const helpSections: HelpSection[] = [
         kind: "table",
         columns: ["Number", "What it counts"],
         rows: [
-          ["Free claims", "People who added a free product to their Library."],
+          ["Purchases", "People who got your product — free claims plus paid orders."],
+          ["Downloads", "Times your file was downloaded, from emailed links and Libraries."],
           ["Sales", "Confirmed paid orders (once paid checkout is switched on)."],
           ["Downloads", "Times your files were opened through a secure download link."],
           ["Reader reviews", "Approved feedback from people who have your product."],

@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { emailCreatorFirstDownload } from "./download-links.server";
+import { siteOrigin } from "./site-origin.server";
 
 const DOWNLOADS_PER_HOUR = 20;
 const LINK_SECONDS = 120;
@@ -22,7 +24,7 @@ export const getResourceDownload = createServerFn({ method: "POST" })
 
     const { data: entitlement, error } = await supabase
       .from("entitlements")
-      .select("id, buyer_id, version_id, revoked_at")
+      .select("id, buyer_id, guide_id, version_id, revoked_at")
       .eq("id", data.entitlementId)
       .eq("buyer_id", userId)
       .maybeSingle();
@@ -60,6 +62,17 @@ export const getResourceDownload = createServerFn({ method: "POST" })
         download: version.file_name ?? true,
       });
     if (signError || !signed) throw new Error("We couldn’t prepare the download. Please try again.");
+
+    const { data: first } = await supabaseAdmin.rpc("mark_guide_first_download", {
+      p_guide_id: entitlement.guide_id,
+    });
+    if (first) {
+      try {
+        await emailCreatorFirstDownload(entitlement.guide_id, siteOrigin());
+      } catch (e) {
+        console.error("first-download email failed", e);
+      }
+    }
 
     return { url: signed.signedUrl, expiresInSeconds: LINK_SECONDS };
   });

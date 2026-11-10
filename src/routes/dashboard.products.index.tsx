@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ExternalLink, Pencil, Plus } from "lucide-react";
+import { Download, ExternalLink, Pencil, Plus, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCreator } from "@/components/creator/creator-context";
 import { useCreatorProducts } from "@/components/creator/use-creator-products";
+import { useProductStats } from "@/components/creator/use-product-stats";
 import { DashHeading, ProductThumb, StatusBadge } from "@/components/creator/product-bits";
 import { useThumbnailUrls } from "@/hooks/use-thumbnail-urls";
 import { formatGuidePrice } from "@/lib/marketplace-data";
@@ -34,6 +35,7 @@ const FILTERS = [
 function ProductsPage() {
   const { user } = useCreator();
   const { rows, error } = useCreatorProducts(user.id);
+  const stats = useProductStats();
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["key"]>("all");
   const thumbs = useThumbnailUrls(
     (rows ?? []).map((r) => r.latest?.thumbnail_path ?? r.guide.thumbnail_path),
@@ -102,6 +104,16 @@ function ProductsPage() {
                   </div>
                   <h3>{v?.title ?? r.guide.title}</h3>
                   <p>{v?.summary}</p>
+                  <p className="product-counts" aria-label="Purchases and downloads">
+                    <span>
+                      <ShoppingBag aria-hidden="true" />
+                      <strong>{stats ? (stats[r.guide.id]?.purchases ?? 0) : "–"}</strong> purchases
+                    </span>
+                    <span>
+                      <Download aria-hidden="true" />
+                      <strong>{stats ? (stats[r.guide.id]?.downloads ?? 0) : "–"}</strong> downloads
+                    </span>
+                  </p>
                   {v?.review_reason &&
                     (v.state === "changes_requested" || v.state === "rejected") && (
                       <p className="review-note">

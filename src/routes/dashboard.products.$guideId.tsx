@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowLeft,
+  Download,
   Eye,
   EyeOff,
   ExternalLink,
@@ -9,6 +10,7 @@ import {
   LoaderCircle,
   Pencil,
   Send,
+  ShoppingBag,
   Trash2,
   Undo2,
 } from "lucide-react";
@@ -19,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useCreator } from "@/components/creator/creator-context";
+import { useProductStats } from "@/components/creator/use-product-stats";
 import { ProductForm } from "@/components/creator/product-form";
 import { DashHeading, ProductThumb, StatusBadge } from "@/components/creator/product-bits";
 import { useThumbnailUrls } from "@/hooks/use-thumbnail-urls";
@@ -56,6 +59,7 @@ const DECISION_LABELS: Record<string, string> = {
 function ManageProductPage() {
   const { guideId } = Route.useParams();
   const { user } = useCreator();
+  const stats = useProductStats();
   const navigate = useNavigate();
   const [guide, setGuide] = useState<Guide | null>(null);
   const [version, setVersion] = useState<Version | null>(null);
@@ -143,6 +147,16 @@ function ManageProductPage() {
       <DashHeading eyebrow={`Version ${version.version_number}`} title={version.title}>
         <StatusBadge {...status} />
       </DashHeading>
+      <p className="product-counts" aria-label="Purchases and downloads">
+        <span>
+          <ShoppingBag aria-hidden="true" />
+          <strong>{stats ? (stats[guide.id]?.purchases ?? 0) : "–"}</strong> purchases
+        </span>
+        <span>
+          <Download aria-hidden="true" />
+          <strong>{stats ? (stats[guide.id]?.downloads ?? 0) : "–"}</strong> downloads
+        </span>
+      </p>
 
       <div className="product-actions-bar">
         {isListed && (

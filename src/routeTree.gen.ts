@@ -26,6 +26,7 @@ import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analy
 import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
+import { Route as GetTokenRouteImport } from './routes/get.$token'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
 import { Route as DashboardProductsIndexRouteImport } from './routes/dashboard.products.index'
 import { Route as DashboardProductsGuideIdRouteImport } from './routes/dashboard.products.$guideId'
@@ -116,6 +117,11 @@ const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
   path: '/transactions',
   getParentRoute: () => DashboardRoute,
 } as any)
+const GetTokenRoute = GetTokenRouteImport.update({
+  id: '/get/$token',
+  path: '/get/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuideSlugRoute = GuideSlugRouteImport.update({
   id: '/guide/$slug',
   path: '/guide/$slug',
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/get/$token': typeof GetTokenRoute
   '/guide/$slug': typeof GuideSlugRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/products/$guideId': typeof DashboardProductsGuideIdRoute
@@ -177,6 +184,7 @@ export interface FileRoutesByTo {
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/get/$token': typeof GetTokenRoute
   '/guide/$slug': typeof GuideSlugRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/products/$guideId': typeof DashboardProductsGuideIdRoute
@@ -201,6 +209,7 @@ export interface FileRoutesById {
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/get/$token': typeof GetTokenRoute
   '/guide/$slug': typeof GuideSlugRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/products/$guideId': typeof DashboardProductsGuideIdRoute
@@ -226,6 +235,7 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/dashboard/settings'
     | '/dashboard/transactions'
+    | '/get/$token'
     | '/guide/$slug'
     | '/dashboard/'
     | '/dashboard/products/$guideId'
@@ -248,6 +258,7 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/dashboard/settings'
     | '/dashboard/transactions'
+    | '/get/$token'
     | '/guide/$slug'
     | '/dashboard'
     | '/dashboard/products/$guideId'
@@ -271,6 +282,7 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/dashboard/settings'
     | '/dashboard/transactions'
+    | '/get/$token'
     | '/guide/$slug'
     | '/dashboard/'
     | '/dashboard/products/$guideId'
@@ -291,6 +303,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermsRoute: typeof TermsRoute
+  GetTokenRoute: typeof GetTokenRoute
   GuideSlugRoute: typeof GuideSlugRoute
 }
 
@@ -415,6 +428,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardTransactionsRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/get/$token': {
+      id: '/get/$token'
+      path: '/get/$token'
+      fullPath: '/get/$token'
+      preLoaderRoute: typeof GetTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guide/$slug': {
       id: '/guide/$slug'
       path: '/guide/$slug'
@@ -485,6 +505,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TermsRoute: TermsRoute,
+  GetTokenRoute: GetTokenRoute,
   GuideSlugRoute: GuideSlugRoute,
 }
 export const routeTree = rootRouteImport

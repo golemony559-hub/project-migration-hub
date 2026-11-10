@@ -42,3 +42,26 @@ describe("problem-led resource search", () => {
     expect(rankGuideListings([guide], "poultry experience")).toEqual([guide]);
   });
 });
+
+describe("keyword search across listing details", () => {
+  const base = { ...sampleGuides[0]!, title: "Starter notes", summary: "Short notes.", description: "", creator_bio: "" };
+
+  it("finds a resource by one of its tags", () => {
+    const guide = { ...base, tags: ["broilers", "vaccination"] };
+    expect(rankGuideListings([guide], "vaccination")).toEqual([guide]);
+  });
+
+  it("finds a resource from the start of a word", () => {
+    const guide = { ...base, title: "Poultry starter notes" };
+    expect(rankGuideListings([guide], "poul")).toEqual([guide]);
+  });
+
+  it("finds a resource by what it helps you achieve", () => {
+    const guide = { ...base, outcomes: "Build a monthly budget you can stick to." };
+    expect(rankGuideListings([guide], "budget")).toEqual([guide]);
+  });
+
+  it("leaves out resources that don't mention the keyword", () => {
+    expect(rankGuideListings([base], "spreadsheet")).toEqual([]);
+  });
+});

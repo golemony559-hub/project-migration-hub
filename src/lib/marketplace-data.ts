@@ -21,6 +21,8 @@ export type GuideListing = Pick<
   tags?: string[];
   thumbnail_path?: string | null;
   outcomes?: string;
+  audience?: string;
+  contents?: string;
   coffee_url?: string;
   sample?: boolean;
 };
@@ -94,10 +96,18 @@ function getSearchTokens(value: string) {
   );
 }
 
+/** Exact word match, or the start of a longer word for 3+ letters ("poul" finds "poultry"). */
+function fieldMatches(terms: Set<string>, variant: string) {
+  if (terms.has(variant)) return true;
+  if (variant.length < 3) return false;
+  for (const term of terms) if (term.startsWith(variant)) return true;
+  return false;
+}
+
 export function rankGuideListings(listings: GuideListing[], query: string) {
   const queryTokens = [
     ...new Set(
-      getSearchTokens(query).filter((token) => token.length > 2 && !searchStopWords.has(token)),
+      getSearchTokens(query).filter((token) => token.length > 1 && !searchStopWords.has(token)),
     ),
   ];
   if (!queryTokens.length) return listings;
@@ -111,6 +121,10 @@ export function rankGuideListings(listings: GuideListing[], query: string) {
     { value: guide.format, weight: 1 },
     { value: guide.creator_name, weight: 1 },
     { value: guide.creator_bio ?? "", weight: 2 },
+    { value: (guide.tags ?? []).join(" "), weight: 4 },
+    { value: guide.outcomes ?? "", weight: 2 },
+    { value: guide.audience ?? "", weight: 2 },
+    { value: guide.contents ?? "", weight: 1 },
   ];
 
   return listings
@@ -127,7 +141,7 @@ export function rankGuideListings(listings: GuideListing[], query: string) {
         const matchingWeight = Math.max(
           0,
           ...fields
-            .filter((field) => [...variants].some((variant) => field.terms.has(variant)))
+            .filter((field) => [...variants].some((variant) => fieldMatches(field.terms, variant)))
             .map((field) => field.weight),
         );
         if (matchingWeight > 0) {

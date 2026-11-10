@@ -185,6 +185,27 @@
 .purchase-unavailable { width: 100%; white-space: normal; }
 .purchase-note { align-items: flex-start; margin: 16px 0 0; color: var(--muted-foreground); font-size: 11px; line-height: 1.6; }
 .purchase-note svg { width: 15px; flex: 0 0 auto; color: var(--market-teal); }
+.get-form { display: grid; gap: 12px; }
+.get-form label { display: grid; gap: 6px; color: var(--foreground); font-size: 12px; font-weight: 700; }
+.get-form button[type="submit"] { width: 100%; white-space: normal; }
+.get-form-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.get-form-error { margin: 0; color: var(--destructive); font-size: 12px; line-height: 1.5; }
+.get-form .purchase-note { margin-top: 4px; }
+.get-sent { display: flex; gap: 12px; padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.get-sent svg { width: 22px; flex: 0 0 auto; color: var(--market-teal); }
+.get-sent strong { color: var(--market-ocean); font-size: 14px; }
+.get-sent p { margin: 4px 0 8px; color: var(--muted-foreground); font-size: 12px; line-height: 1.6; }
+.link-button { padding: 0; border: 0; background: none; color: var(--market-teal); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.link-button:disabled { opacity: .6; cursor: wait; }
+.get-page { max-width: 560px; margin: 0 auto; padding: 72px 24px 96px; }
+.get-page h1 { margin: 8px 0 14px; color: var(--market-ocean); font-size: 32px; }
+.get-page p { color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
+.get-page .button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.get-page .get-form-error { margin-top: 14px; }
+.product-counts { display: flex; flex-wrap: wrap; gap: 14px; margin: 6px 0 0; color: var(--muted-foreground); font-size: 12px; }
+.product-counts span { display: inline-flex; align-items: center; gap: 5px; }
+.product-counts svg { width: 14px; color: var(--market-teal); }
+.product-counts strong { color: var(--foreground); }
 .license-note { margin: 12px 0 0; color: var(--muted-foreground); font-size: 10px; line-height: 1.6; }
 .sample-note { margin: 14px 0 0; color: var(--market-coral); font-size: 11px; font-weight: 800; }
 .detail-afterword { margin: 22px 0 0; padding: 26px 0 40px; border-top: 1px solid var(--border); }

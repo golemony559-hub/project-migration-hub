@@ -40,3 +40,5 @@ Creator dashboard pages show saved data read-only and switch to a form only via 
 Creator emails (welcome after onboarding, submit → admin + creator acknowledgement, approve → creator) are sent from authenticated server functions through the Resend connector after the database step succeeds, re-checking state server-side and using idempotency keys, so a failed email never blocks or duplicates a review action; the welcome email is marked sent in the account's app metadata so it goes out once.
 
 Creator help content lives in one data module rendered by the public /creator-help page, so help text, search and the welcome email link stay in sync with the dashboard's real field names and limits.
+
+Resources are delivered by emailed personal links: a public server function records the claim (guest orders carry buyer email/name) and stores only a hash of the link token; the /get/$token page spends a download only when the visitor presses Download (so email link scanners don't count), and expiry/limits/first-download notices are enforced in service-role-only database functions so the browser can't bypass them.

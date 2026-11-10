@@ -208,7 +208,12 @@ function OverviewPage() {
         <StatCard label="Live products" value={live} />
         <StatCard label="Pending review" value={count("pending")} />
         <StatCard label="Need your attention" value={attention} />
-        <StatCard label="Free downloads claimed" value={stats?.claims ?? "–"} />
+        <StatCard
+          label="Purchases"
+          value={stats ? stats.claims + stats.sales : "–"}
+          hint={stats ? `${stats.claims} free · ${stats.sales} paid` : undefined}
+        />
+        <StatCard label="Downloads" value={stats?.downloads ?? "–"} />
         <StatCard
           label="Sales"
           value={stats?.sales ?? "–"}
