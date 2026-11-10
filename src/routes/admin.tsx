@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { sendApprovalEmail } from "@/lib/review-emails.functions";
+import { QualityReport } from "@/components/quality-report";
+import { CreatorVerificationAdmin } from "@/components/admin/creator-verification";
 import { listUsersWithRoles, type AdminUserRow } from "@/lib/admin-users.functions";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,7 +52,7 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const { ready, isAdmin } = useIsAdmin();
-  const [tab, setTab] = useState<"review" | "cases" | "feedback" | "users">("review");
+  const [tab, setTab] = useState<"review" | "cases" | "feedback" | "users" | "creators">("review");
   if (!ready)
     return (
       <main className="market-message">
@@ -86,11 +88,15 @@ function AdminPage() {
         <Button variant={tab === "users" ? "default" : "outline"} onClick={() => setTab("users")}>
           Users
         </Button>
+        <Button variant={tab === "creators" ? "default" : "outline"} onClick={() => setTab("creators")}>
+          Creator verification
+        </Button>
       </div>
       {tab === "review" && <ReviewQueue />}
       {tab === "cases" && <CaseQueue />}
       {tab === "feedback" && <FeedbackQueue />}
       {tab === "users" && <UsersTable />}
+      {tab === "creators" && <CreatorVerificationAdmin />}
     </main>
   );
 }
@@ -197,6 +203,7 @@ function ReviewCard({ version: v, onDone }: { version: Version; onDone: () => vo
           <strong>AI assistance:</strong> {v.ai_assistance} {v.ai_disclosure}
         </p>
       </details>
+      <QualityReport versionId={v.id} audience="admin" />
       {v.file_path && (
         <Button variant="outline" size="sm" onClick={() => void openFile()}>
           Open file ({v.file_name ?? "attachment"})
