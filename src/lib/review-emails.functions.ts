@@ -10,6 +10,7 @@ import {
 } from "./review-emails";
 import { sendReviewEmail } from "./review-emails.server";
 import { isCreatorOnboarded } from "./creator-status";
+import { siteOrigin } from "./site-origin.server";
 
 const validateVersion = (input: { versionId: string }) => {
   if (typeof input?.versionId !== "string" || !/^[0-9a-f-]{36}$/i.test(input.versionId)) {
@@ -17,15 +18,6 @@ const validateVersion = (input: { versionId: string }) => {
   }
   return { versionId: input.versionId };
 };
-
-/** The site address used for links in emails; never taken from arbitrary caller input. */
-function siteOrigin() {
-  const request = getRequest();
-  const own = new URL(request.url);
-  if (own.hostname !== "localhost" && own.hostname !== "127.0.0.1") return own.origin;
-  const header = request.headers.get("origin") ?? "";
-  return /^https:\/\/[a-z0-9-]+\.(lovable\.app|lovableproject\.com)$/i.test(header) ? header : own.origin;
-}
 
 type Outcome = { admin: boolean; creator: boolean };
 

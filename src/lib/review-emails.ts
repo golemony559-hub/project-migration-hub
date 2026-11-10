@@ -182,3 +182,5 @@ export function creatorApprovedEmail(p: {
     url: `${p.origin}/guide/${p.slug}`,
   });
 }
+
+export { build as buildEmail };
