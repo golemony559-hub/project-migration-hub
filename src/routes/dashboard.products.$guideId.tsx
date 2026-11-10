@@ -22,6 +22,9 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useCreator } from "@/components/creator/creator-context";
 import { useProductStats } from "@/components/creator/use-product-stats";
+import { PlaybookItemsEditor } from "@/components/playbook/items-editor";
+import { QualityReport } from "@/components/quality-report";
+import { categoryToneClass } from "@/lib/category-colors";
 import { ProductForm } from "@/components/creator/product-form";
 import { DashHeading, ProductThumb, StatusBadge } from "@/components/creator/product-bits";
 import { useThumbnailUrls } from "@/hooks/use-thumbnail-urls";
@@ -342,7 +345,9 @@ function ManageProductPage() {
             )}
             <div>
               <dt>Search tags</dt>
-              <dd>{version.tags.length ? version.tags.join(", ") : "—"}</dd>
+              <dd className={categoryToneClass(version.category)}>
+                {version.tags.length ? version.tags.join(", ") : "—"}
+              </dd>
             </div>
             <div>
               <dt>File</dt>
@@ -357,6 +362,14 @@ function ManageProductPage() {
           )}
         </section>
       )}
+
+      <PlaybookItemsEditor
+        versionId={version.id}
+        guideId={guide.id}
+        creatorId={user.id}
+        editable={editable && !editing}
+      />
+      <QualityReport versionId={version.id} audience="creator" />
 
       <section className="dash-section">
         <h2>Review history</h2>
