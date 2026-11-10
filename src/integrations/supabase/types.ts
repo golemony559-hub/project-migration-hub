@@ -127,6 +127,63 @@ export type Database = {
         }
         Relationships: []
       }
+      collection_items: {
+        Row: {
+          collection_id: string
+          created_at: string
+          guide_id: string
+          user_id: string
+        }
+        Insert: {
+          collection_id: string
+          created_at?: string
+          guide_id: string
+          user_id: string
+        }
+        Update: {
+          collection_id?: string
+          created_at?: string
+          guide_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collection_items_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "collection_items_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      collections: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       commercial_settings: {
         Row: {
           earnings_hold_days: number
@@ -165,6 +222,94 @@ export type Database = {
           updated_by?: string | null
         }
         Relationships: []
+      }
+      creator_questions: {
+        Row: {
+          answer: string | null
+          answered_at: string | null
+          asker_email: string
+          asker_name: string
+          created_at: string
+          creator_id: string
+          guide_id: string
+          id: string
+          is_public: boolean
+          question: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          answer?: string | null
+          answered_at?: string | null
+          asker_email: string
+          asker_name: string
+          created_at?: string
+          creator_id: string
+          guide_id: string
+          id?: string
+          is_public?: boolean
+          question: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          answer?: string | null
+          answered_at?: string | null
+          asker_email?: string
+          asker_name?: string
+          created_at?: string
+          creator_id?: string
+          guide_id?: string
+          id?: string
+          is_public?: boolean
+          question?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "creator_questions_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      creator_verifications: {
+        Row: {
+          created_at: string
+          creator_id: string
+          id: string
+          kind: string
+          note: string
+          verified_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          id?: string
+          kind: string
+          note?: string
+          verified_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          id?: string
+          kind?: string
+          note?: string
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "creator_verifications_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       download_links: {
         Row: {
@@ -688,6 +833,67 @@ export type Database = {
           },
         ]
       }
+      library_notes: {
+        Row: {
+          body: string
+          guide_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body?: string
+          guide_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          guide_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_notes_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      library_progress: {
+        Row: {
+          completed_item_ids: string[]
+          guide_id: string
+          percent: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_item_ids?: string[]
+          guide_id: string
+          percent?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_item_ids?: string[]
+          guide_id?: string
+          percent?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_progress_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           body: string
@@ -879,33 +1085,126 @@ export type Database = {
         }
         Relationships: []
       }
+      product_items: {
+        Row: {
+          created_at: string
+          creator_id: string
+          description: string
+          file_mime: string | null
+          file_name: string | null
+          file_path: string | null
+          file_size_bytes: number | null
+          guide_id: string
+          id: string
+          kind: string
+          position: number
+          section: string
+          title: string
+          tool_config: Json
+          tool_key: string | null
+          updated_at: string
+          url: string | null
+          version_id: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          description?: string
+          file_mime?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size_bytes?: number | null
+          guide_id: string
+          id?: string
+          kind: string
+          position?: number
+          section?: string
+          title: string
+          tool_config?: Json
+          tool_key?: string | null
+          updated_at?: string
+          url?: string | null
+          version_id: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          description?: string
+          file_mime?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size_bytes?: number | null
+          guide_id?: string
+          id?: string
+          kind?: string
+          position?: number
+          section?: string
+          title?: string
+          tool_config?: Json
+          tool_key?: string | null
+          updated_at?: string
+          url?: string | null
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_items_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_items_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
+          achievements: string
           avatar_url: string | null
           bio: string
           coffee_url: string
           created_at: string
           display_name: string
           id: string
+          professional_background: string
+          qualifications: string
+          specializations: string[]
           updated_at: string
+          years_experience: number | null
         }
         Insert: {
+          achievements?: string
           avatar_url?: string | null
           bio?: string
           coffee_url?: string
           created_at?: string
           display_name?: string
           id: string
+          professional_background?: string
+          qualifications?: string
+          specializations?: string[]
           updated_at?: string
+          years_experience?: number | null
         }
         Update: {
+          achievements?: string
           avatar_url?: string | null
           bio?: string
           coffee_url?: string
           created_at?: string
           display_name?: string
           id?: string
+          professional_background?: string
+          qualifications?: string
+          specializations?: string[]
           updated_at?: string
+          years_experience?: number | null
         }
         Relationships: []
       }
@@ -988,6 +1287,32 @@ export type Database = {
             columns: ["version_id"]
             isOneToOne: false
             referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_products: {
+        Row: {
+          created_at: string
+          guide_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          guide_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          guide_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_products_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
             referencedColumns: ["id"]
           },
         ]
@@ -1086,11 +1411,66 @@ export type Database = {
         }
         Relationships: []
       }
+      version_quality_checks: {
+        Row: {
+          created_at: string
+          creator_id: string
+          flags: string[]
+          guide_id: string
+          id: string
+          overall: string
+          scores: Json
+          suggestions: string[]
+          summary: string
+          version_id: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          flags?: string[]
+          guide_id: string
+          id?: string
+          overall: string
+          scores?: Json
+          suggestions?: string[]
+          summary?: string
+          version_id: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          flags?: string[]
+          guide_id?: string
+          id?: string
+          overall?: string
+          scores?: Json
+          suggestions?: string[]
+          summary?: string
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "version_quality_checks_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_quality_checks_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      attach_my_email_orders: { Args: never; Returns: number }
       claim_free_resource: { Args: { p_guide_id: string }; Returns: string }
       confirm_order_payment: {
         Args: {
@@ -1104,6 +1484,10 @@ export type Database = {
         Returns: string
       }
       consume_download_link: { Args: { p_token_hash: string }; Returns: Json }
+      consume_download_link_item: {
+        Args: { p_item_id: string; p_token_hash: string }
+        Returns: Json
+      }
       create_pending_order: {
         Args: { p_guide_id: string; p_license_type: string }
         Returns: string
@@ -1162,6 +1546,18 @@ export type Database = {
       notify_user: {
         Args: { _body: string; _link: string; _title: string; _user_id: string }
         Returns: undefined
+      }
+      product_outline: {
+        Args: { p_guide_id: string }
+        Returns: {
+          description: string
+          id: string
+          item_position: number
+          kind: string
+          section: string
+          title: string
+          tool_key: string
+        }[]
       }
       record_ledger_adjustment: {
         Args: {
