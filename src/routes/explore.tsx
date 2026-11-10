@@ -10,7 +10,7 @@ export const Route = createFileRoute("/explore")({
     const { data: guides, error } = await supabase
       .from("guides")
       .select(
-        "id, slug, title, summary, description, category, format, reading_time_minutes, price_cents, currency_code, creator_id, created_at, thumbnail_path",
+        "id, slug, title, summary, description, category, format, reading_time_minutes, price_cents, currency_code, creator_id, created_at, thumbnail_path, tags, outcomes, audience, contents",
       )
       .eq("status", "published")
       .order("created_at", { ascending: false });
