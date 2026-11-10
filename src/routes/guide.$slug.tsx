@@ -10,6 +10,11 @@ import {
 } from "@/lib/marketplace-data";
 import { supabase } from "@/integrations/supabase/client";
 import { GuideAccessPanel, GuideCommunity } from "@/components/guide-access";
+import { AskCreatorButton, PublicAnswers } from "@/components/ask-creator";
+import { ProductOutline } from "@/components/playbook/product-outline";
+import { CreatorCredentials } from "@/components/creator-credentials";
+import { SaveProductButton } from "@/components/library/save-button";
+import { categoryToneClass } from "@/lib/category-colors";
 
 export const Route = createFileRoute("/guide/$slug")({
   loader: async ({ params }) => {
@@ -104,7 +109,7 @@ function GuideDetailPage() {
       <section className="guide-detail-layout">
         <article className="guide-detail-copy">
           <div className="guide-detail-meta">
-            <span>{guide.category}</span>
+            <span className={categoryToneClass(guide.category)}>{guide.category}</span>
             <span>{guide.format}</span>
           </div>
           {thumbUrl && (
@@ -127,6 +132,7 @@ function GuideDetailPage() {
               By <strong>{guide.creator_name}</strong>
             </span>
           </div>
+          {!isSample && <CreatorCredentials creatorId={guide.creator_id} creatorName={guide.creator_name} />}
           {(creatorProfile.expertise.length > 0 ||
             creatorProfile.experience ||
             creatorProfile.about) && (
@@ -155,13 +161,14 @@ function GuideDetailPage() {
             <h2>Problem, scope & what’s included</h2>
             <p className="pre-line">{guide.description}</p>
             {guide.tags && guide.tags.length > 0 && (
-              <ul className="listing-tags" aria-label="Topics">
+              <ul className={`listing-tags ${categoryToneClass(guide.category)}`} aria-label="Topics">
                 {guide.tags.map((tag) => (
                   <li key={tag}>{tag}</li>
                 ))}
               </ul>
             )}
           </div>
+          {!isSample && <ProductOutline guideId={guide.id} />}
           {gains.length > 0 && (
             <div className="guide-gains">
               <h2>What you’ll gain</h2>
@@ -195,8 +202,12 @@ function GuideDetailPage() {
           <GuideAccessPanel
             guideId={guide.id}
             priceCents={guide.price_cents}
-            isSample={Boolean("sample" in guide && guide.sample)}
+            isSample={isSample}
           />
+          {!isSample && <SaveProductButton guideId={guide.id} />}
+          {!isSample && (
+            <AskCreatorButton guideId={guide.id} guideTitle={guide.title} creatorName={guide.creator_name} />
+          )}
           {showCoffee && (
             <div className="coffee-box">
               <p>Found this useful? {guide.creator_name.split(" ")[0]} shares it for free.</p>
@@ -210,7 +221,8 @@ function GuideDetailPage() {
           {guide.sample && <p className="sample-note">Example listing</p>}
         </aside>
       </section>
-      {!("sample" in guide && guide.sample) && <GuideCommunity guideId={guide.id} />}
+      {!isSample && <PublicAnswers guideId={guide.id} />}
+      {!isSample && <GuideCommunity guideId={guide.id} />}
       <section className="detail-afterword">
         <h2>More useful know-how</h2>
         <p>Browse practical resources from independent creators across different fields.</p>
