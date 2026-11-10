@@ -62,6 +62,13 @@ export const sendSubmissionEmails = createServerFn({ method: "POST" })
           )
         : Promise.resolve({ sent: false as const, error: "No email on account" }),
     ]);
+    // Automatic quality & originality check for the reviewer and the creator (best-effort).
+    try {
+      const { runQualityCheckFor } = await import("./quality-check.server");
+      await runQualityCheckFor(v.id);
+    } catch (e) {
+      console.error("quality check failed", e);
+    }
     return { admin: admin.sent, creator: creator.sent };
   });
 
