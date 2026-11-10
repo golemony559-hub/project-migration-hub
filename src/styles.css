@@ -698,3 +698,21 @@
 .tag-preview { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
 .tag-preview li { padding: 2px 8px; border: 1px solid color-mix(in oklch, var(--cat-ink, var(--market-teal)) 35%, transparent); border-radius: 999px; color: var(--cat-ink, var(--market-teal)); font-size: 11px; font-weight: 700; }
 .category-list .cat-tone[aria-pressed="false"] { color: var(--cat-ink); }
+
+/* Goal-based discovery */
+.goal-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+.goal-chips-label { display: inline-flex; align-items: center; gap: 6px; color: var(--muted-foreground); font-size: 12px; font-weight: 700; }
+.goal-chips-label svg { width: 15px; color: var(--market-teal); }
+.goal-chip { padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; color: var(--market-ocean); font-size: 12px; font-weight: 700; text-decoration: none; }
+.goal-chip:hover, .goal-chip.is-active { border-color: var(--market-ocean); background: var(--market-ocean); color: var(--primary-foreground); }
+.explore-catalog .goal-chips { margin: 0 0 22px; }
+.goal-recs { margin: 0 0 40px; padding: 22px 0 18px; border-top: 2px solid var(--market-ocean); border-bottom: 1px solid var(--border); }
+.goal-recs h2 { margin: 4px 0 8px; color: var(--market-ocean); font-size: 28px; }
+.goal-recs-intro, .goal-recs-empty { color: var(--muted-foreground); font-size: 14px; }
+.goal-recs-group { margin-top: 22px; }
+.goal-recs-group h3 { margin: 0 0 8px; color: var(--foreground); font-size: 15px; }
+.goal-recs-group ul { margin: 0; padding: 0; list-style: none; }
+.goal-recs-group li { display: grid; grid-template-columns: 140px 1fr auto; gap: 14px; align-items: baseline; padding: 10px 0; border-top: 1px solid var(--border); font-size: 13px; }
+.goal-recs-group li a { color: var(--market-ocean); font-weight: 700; }
+.goal-recs-meta { color: var(--muted-foreground); font-size: 12px; }
+@media (max-width: 640px) { .goal-recs-group li { grid-template-columns: 1fr; gap: 2px; } }

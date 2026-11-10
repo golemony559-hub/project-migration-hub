@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { GuideCatalog } from "@/components/guide-catalog";
+import { GoalChips, GoalRecommendations } from "@/components/goal-recommendations";
+import { findGoal, matchGoal } from "@/lib/goals";
 import { sampleGuides, type GuideListing } from "@/lib/marketplace-data";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/explore")({
-  validateSearch: z.object({ q: z.string().optional() }),
+  validateSearch: z.object({ q: z.string().optional(), goal: z.string().optional() }),
   loader: async () => {
     const { data: guides, error } = await supabase
       .from("guides")
@@ -58,12 +60,15 @@ export const Route = createFileRoute("/explore")({
 
 function ExplorePage() {
   const listings = Route.useLoaderData();
-  const { q } = Route.useSearch();
+  const { q, goal: goalId } = Route.useSearch();
+  const goal = findGoal(goalId) ?? (q ? matchGoal(q) : null);
 
   return (
     <main>
       <section className="market-catalog explore-catalog" aria-label="Explore resources">
-        <GuideCatalog listings={listings} initialQuery={q ?? ""} />
+        <GoalChips activeId={goal?.id} />
+        {goal && <GoalRecommendations goal={goal} listings={listings} />}
+        <GuideCatalog listings={listings} initialQuery={goalId ? "" : (q ?? "")} />
       </section>
     </main>
   );

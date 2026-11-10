@@ -4,6 +4,7 @@ import { ArrowRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GuideCatalog } from "@/components/guide-catalog";
+import { GoalChips } from "@/components/goal-recommendations";
 import { sampleGuides, type GuideListing } from "@/lib/marketplace-data";
 import poultryPhotoAsset from "@/assets/poultry-knowledge.jpg.asset.json";
 
@@ -96,12 +97,13 @@ function MarketplaceHome() {
             <Search aria-hidden="true" />
             <Input
               aria-label="Search practical resources"
-              placeholder="What are you trying to figure out?"
+              placeholder="What do you want to accomplish? e.g. start a poultry farm"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
             />
             <Button type="submit">Find a resource</Button>
           </form>
+          <GoalChips />
           <div className="market-proof">
             <span>Practical knowledge</span>
             <span>Independent creators</span>
