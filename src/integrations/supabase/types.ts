@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_events: {
+        Row: {
+          buyer_id: string
+          created_at: string
+          entitlement_id: string
+          id: string
+          kind: string
+        }
+        Insert: {
+          buyer_id: string
+          created_at?: string
+          entitlement_id: string
+          id?: string
+          kind: string
+        }
+        Update: {
+          buyer_id?: string
+          created_at?: string
+          entitlement_id?: string
+          id?: string
+          kind?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "access_events_entitlement_id_fkey"
+            columns: ["entitlement_id"]
+            isOneToOne: false
+            referencedRelation: "entitlements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       admin_invites: {
         Row: {
           created_at: string
@@ -133,6 +165,64 @@ export type Database = {
           updated_by?: string | null
         }
         Relationships: []
+      }
+      entitlements: {
+        Row: {
+          buyer_id: string
+          created_at: string
+          guide_id: string
+          id: string
+          license_type: string
+          order_id: string
+          revoked_at: string | null
+          revoked_reason: string | null
+          version_id: string
+        }
+        Insert: {
+          buyer_id: string
+          created_at?: string
+          guide_id: string
+          id?: string
+          license_type?: string
+          order_id: string
+          revoked_at?: string | null
+          revoked_reason?: string | null
+          version_id: string
+        }
+        Update: {
+          buyer_id?: string
+          created_at?: string
+          guide_id?: string
+          id?: string
+          license_type?: string
+          order_id?: string
+          revoked_at?: string | null
+          revoked_reason?: string | null
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entitlements_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entitlements_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entitlements_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       guide_reviews: {
         Row: {
@@ -453,6 +543,66 @@ export type Database = {
           },
         ]
       }
+      ledger_entries: {
+        Row: {
+          amount_cents: number
+          available_at: string
+          created_at: string
+          created_by: string | null
+          creator_id: string
+          currency_code: string
+          entry_type: string
+          id: string
+          note: string
+          order_id: string | null
+          payout_id: string | null
+          rate_bps: number | null
+        }
+        Insert: {
+          amount_cents: number
+          available_at?: string
+          created_at?: string
+          created_by?: string | null
+          creator_id: string
+          currency_code: string
+          entry_type: string
+          id?: string
+          note?: string
+          order_id?: string | null
+          payout_id?: string | null
+          rate_bps?: number | null
+        }
+        Update: {
+          amount_cents?: number
+          available_at?: string
+          created_at?: string
+          created_by?: string | null
+          creator_id?: string
+          currency_code?: string
+          entry_type?: string
+          id?: string
+          note?: string
+          order_id?: string | null
+          payout_id?: string | null
+          rate_bps?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ledger_payout_fkey"
+            columns: ["payout_id"]
+            isOneToOne: false
+            referencedRelation: "payouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           body: string
@@ -483,6 +633,161 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          amount_cents: number
+          buyer_id: string
+          created_at: string
+          creator_id: string
+          currency_code: string
+          guide_id: string
+          id: string
+          license_type: string
+          order_reference: string
+          paid_at: string | null
+          provider: string | null
+          provider_reference: string | null
+          status: string
+          updated_at: string
+          version_id: string
+        }
+        Insert: {
+          amount_cents: number
+          buyer_id: string
+          created_at?: string
+          creator_id: string
+          currency_code: string
+          guide_id: string
+          id?: string
+          license_type?: string
+          order_reference?: string
+          paid_at?: string | null
+          provider?: string | null
+          provider_reference?: string | null
+          status?: string
+          updated_at?: string
+          version_id: string
+        }
+        Update: {
+          amount_cents?: number
+          buyer_id?: string
+          created_at?: string
+          creator_id?: string
+          currency_code?: string
+          guide_id?: string
+          id?: string
+          license_type?: string
+          order_reference?: string
+          paid_at?: string | null
+          provider?: string | null
+          provider_reference?: string | null
+          status?: string
+          updated_at?: string
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_events: {
+        Row: {
+          amount_cents: number | null
+          created_at: string
+          currency_code: string | null
+          event_type: string
+          id: string
+          order_id: string | null
+          outcome: string
+          payload: Json
+          provider: string
+          provider_event_id: string
+        }
+        Insert: {
+          amount_cents?: number | null
+          created_at?: string
+          currency_code?: string | null
+          event_type: string
+          id?: string
+          order_id?: string | null
+          outcome?: string
+          payload?: Json
+          provider: string
+          provider_event_id: string
+        }
+        Update: {
+          amount_cents?: number | null
+          created_at?: string
+          currency_code?: string | null
+          event_type?: string
+          id?: string
+          order_id?: string | null
+          outcome?: string
+          payload?: Json
+          provider?: string
+          provider_event_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_events_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payouts: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          created_by: string | null
+          creator_id: string
+          currency_code: string
+          id: string
+          method_note: string
+          paid_at: string | null
+          reference: string
+          status: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          created_by?: string | null
+          creator_id: string
+          currency_code: string
+          id?: string
+          method_note?: string
+          paid_at?: string | null
+          reference?: string
+          status?: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          created_by?: string | null
+          creator_id?: string
+          currency_code?: string
+          id?: string
+          method_note?: string
+          paid_at?: string | null
+          reference?: string
+          status?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -509,6 +814,162 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      resource_feedback: {
+        Row: {
+          buyer_id: string
+          clarity: number
+          comment: string
+          created_at: string
+          entitlement_id: string
+          guide_id: string
+          id: string
+          listing_accuracy: number
+          moderated_at: string | null
+          moderated_by: string | null
+          moderation_reason: string | null
+          status: string
+          updated_at: string
+          usefulness: number
+          version_id: string
+        }
+        Insert: {
+          buyer_id: string
+          clarity: number
+          comment?: string
+          created_at?: string
+          entitlement_id: string
+          guide_id: string
+          id?: string
+          listing_accuracy: number
+          moderated_at?: string | null
+          moderated_by?: string | null
+          moderation_reason?: string | null
+          status?: string
+          updated_at?: string
+          usefulness: number
+          version_id: string
+        }
+        Update: {
+          buyer_id?: string
+          clarity?: number
+          comment?: string
+          created_at?: string
+          entitlement_id?: string
+          guide_id?: string
+          id?: string
+          listing_accuracy?: number
+          moderated_at?: string | null
+          moderated_by?: string | null
+          moderation_reason?: string | null
+          status?: string
+          updated_at?: string
+          usefulness?: number
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_feedback_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_feedback_entitlement_id_fkey"
+            columns: ["entitlement_id"]
+            isOneToOne: true
+            referencedRelation: "entitlements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_feedback_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_feedback_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_cases: {
+        Row: {
+          case_type: string
+          created_at: string
+          details: string
+          guide_id: string | null
+          id: string
+          order_id: string | null
+          reporter_id: string
+          resolution: string
+          resolution_action: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          status: string
+          updated_at: string
+          version_id: string | null
+        }
+        Insert: {
+          case_type: string
+          created_at?: string
+          details: string
+          guide_id?: string | null
+          id?: string
+          order_id?: string | null
+          reporter_id: string
+          resolution?: string
+          resolution_action?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          updated_at?: string
+          version_id?: string | null
+        }
+        Update: {
+          case_type?: string
+          created_at?: string
+          details?: string
+          guide_id?: string | null
+          id?: string
+          order_id?: string | null
+          reporter_id?: string
+          resolution?: string
+          resolution_action?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          updated_at?: string
+          version_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_cases_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "support_cases_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "support_cases_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
