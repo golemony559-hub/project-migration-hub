@@ -1,3 +1,4 @@
+import { categoryToneClass } from "@/lib/category-colors";
 import { useEffect, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { FileUp, ImagePlus, LoaderCircle, Send, Save, X } from "lucide-react";
@@ -405,6 +406,13 @@ export function ProductForm({ userId, version, onDone, onCancel }: Props) {
             placeholder="e.g. chickens, brooder, poultry health"
           />
           <span className="field-hint">Separate tags with commas. Up to 8.</span>
+          {normalizeListingTags(tags.split(",")).length > 0 && (
+            <ul className={`tag-preview ${categoryToneClass(category)}`} aria-label="Tag preview">
+              {normalizeListingTags(tags.split(",")).map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          )}
         </label>
       </section>
 

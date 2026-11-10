@@ -29,6 +29,15 @@
   --market-coral: oklch(0.72 0.16 35);
   --market-paper: oklch(0.97 0.018 177);
   --radius: 0.375rem;
+  /* Industry colours: tags and category labels take their industry's ink */
+  --cat-1: oklch(0.45 0.13 255); /* Business — blue */
+  --cat-2: oklch(0.47 0.12 145); /* Farming & food — green */
+  --cat-3: oklch(0.50 0.12 60);  /* Home & repair — amber */
+  --cat-4: oklch(0.50 0.17 350); /* Marketing — magenta */
+  --cat-5: oklch(0.46 0.11 170); /* Money — teal */
+  --cat-6: oklch(0.46 0.16 295); /* Technology — violet */
+  --cat-7: oklch(0.52 0.16 30);  /* other — vermilion */
+  --cat-8: oklch(0.42 0.06 230); /* other — slate */
 }
 
 @theme inline {
@@ -674,3 +683,18 @@
 .role-badge.role-admin { background: var(--primary); color: var(--primary-foreground); }
 .role-badge.role-moderator { background: var(--accent); color: var(--accent-foreground); }
 .role-badge.role-creator { background: var(--foreground); color: var(--background); }
+
+/* Industry text colours */
+.cat-tone-1 { --cat-ink: var(--cat-1); }
+.cat-tone-2 { --cat-ink: var(--cat-2); }
+.cat-tone-3 { --cat-ink: var(--cat-3); }
+.cat-tone-4 { --cat-ink: var(--cat-4); }
+.cat-tone-5 { --cat-ink: var(--cat-5); }
+.cat-tone-6 { --cat-ink: var(--cat-6); }
+.cat-tone-7 { --cat-ink: var(--cat-7); }
+.cat-tone-8 { --cat-ink: var(--cat-8); }
+.cat-tone, .guide-meta .cat-tone, .guide-detail-meta .cat-tone { color: var(--cat-ink); font-weight: 700; }
+.listing-tags.cat-tone li { color: var(--cat-ink); border-color: color-mix(in oklch, var(--cat-ink) 35%, transparent); }
+.tag-preview { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
+.tag-preview li { padding: 2px 8px; border: 1px solid color-mix(in oklch, var(--cat-ink, var(--market-teal)) 35%, transparent); border-radius: 999px; color: var(--cat-ink, var(--market-teal)); font-size: 11px; font-weight: 700; }
+.category-list .cat-tone[aria-pressed="false"] { color: var(--cat-ink); }
