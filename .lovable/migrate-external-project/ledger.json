@@ -1,0 +1,22 @@
+{
+  "source": "code-archive: project-migration-hub-main_1.zip (Doerly marketplace, TanStack Start + Lovable Cloud, drizzle migrations 0000-0005)",
+  "capabilities": [
+    { "capability": "application code (routes, components, styles, tests)", "source": "src/, public/", "outcome": "migrate", "status": "pending", "next_action": "Copy source; run tests; render routes" },
+    { "capability": "image assets (logo, hero photo)", "source": "src/assets/*.asset.json (old project asset storage)", "outcome": "migrate", "status": "pending", "next_action": "Re-upload bytes into this project's asset storage" },
+    { "capability": "schema, functions, RLS, storage buckets + policies", "source": "drizzle/migrations/0000-0005", "outcome": "migrate", "status": "pending", "next_action": "Enable Lovable Cloud and apply migrations" },
+    { "capability": "seed records: categories, commercial_settings, admin invite", "source": "migration INSERTs", "outcome": "migrate", "status": "pending", "next_action": "Applied with migrations" },
+    { "capability": "records: profiles, guides, versions, orders, feedback, notifications, etc.", "source": "old Lovable Cloud database (no export attached)", "outcome": "migrate", "status": "pending", "next_action": "Request per-table CSV exports after preview" },
+    { "capability": "auth identities", "source": "old Lovable Cloud users (no export attached)", "outcome": "migrate", "status": "pending", "next_action": "Request users export (id, email); users verify email and set a new password on first visit" },
+    { "capability": "auth methods: email/password, Google, Lovable", "source": "marketplace-auth-dialog.tsx", "outcome": "migrate", "status": "pending", "next_action": "Enable providers; verify email sign-in" },
+    { "capability": "authorization (has_role admin, admin invites, owner-scoped RLS)", "source": "migration policies/functions", "outcome": "migrate", "status": "pending", "next_action": "Verify drafts private, admin approval publishes" },
+    { "capability": "uploaded file bytes (guide files, thumbnails)", "source": "old storage buckets", "outcome": "migrate", "status": "pending", "next_action": "Request files with the data export" },
+    { "capability": "server functions: secure download, AI autofill/listing assistant, admin users, review emails", "source": "src/lib/*.functions.ts", "outcome": "migrate", "status": "pending", "next_action": "Exercise after Cloud is enabled" },
+    { "capability": "AI provider", "source": "@lovable.dev/ai-gateway", "outcome": "preserve", "status": "pending", "next_action": "Verify one autofill call" },
+    { "capability": "email provider: Resend via connector", "source": "src/lib/review-emails.server.ts (RESEND_API_KEY)", "outcome": "preserve", "status": "pending", "next_action": "Connect Resend in this project" },
+    { "capability": "payments, analytics", "source": "code search", "outcome": "none detected", "status": "verified", "next_action": "None; paid checkout intentionally deferred in source" },
+    { "capability": "public endpoints, webhooks, schedules", "source": "code search (no src/routes/api; cron helper unused)", "outcome": "none detected", "status": "pending", "next_action": "Confirm no callers" },
+    { "capability": "secrets", "source": "RESEND_API_KEY (connector), LOVABLE_API_KEY (managed)", "outcome": "preserve", "status": "pending", "next_action": "Provided by connector/Cloud" },
+    { "capability": "cutover", "source": "old project", "outcome": "pending", "status": "pending", "next_action": "Publish once existing data is imported or skipped" },
+    { "capability": "verification", "source": "end-to-end flows", "outcome": "pending", "status": "pending", "next_action": "Creator onboarding, upload, review, claim, download" }
+  ]
+}

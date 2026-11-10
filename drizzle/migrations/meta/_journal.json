@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794302440256,
+      "tag": "0000_0000_marketplace_profiles_guides",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794302514496,
+      "tag": "0001_0001_prd_roles_catalog_versions",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794302571671,
+      "tag": "0002_0002_prd_orders_ledger_support_feedback",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794302689528,
+      "tag": "0003_0003_prd_workflow_functions",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794302742328,
+      "tag": "0004_0004_creator_dashboard_products",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794302763523,
+      "tag": "0005_0005_creator_submission_acknowledgement",
+      "breakpoints": true
+    }
+  ]
+}
