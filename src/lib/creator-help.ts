@@ -241,7 +241,7 @@ export const helpSections: HelpSection[] = [
       },
       {
         kind: "p",
-        text: "Your file is stored privately. Nobody can open it while it’s a draft or in review except you and the reviewing admin. After approval, only people who have claimed or bought it can download it, through a short-lived secure link.",
+        text: "Your file is stored privately. Nobody can open it while it’s a draft or in review except you and the reviewing admin. After approval, buyers enter their name and email on your page and we email them a personal download link (links for paid products stop working after 6 hours).",
       },
       { kind: "link", label: "Add a new product", to: "/dashboard/products/new" },
     ],
@@ -292,7 +292,7 @@ export const helpSections: HelpSection[] = [
         rows: [
           [
             "Free",
-            "Anyone with a verified account can get it. Readers see a “Buy me a coffee” button on your page if you’ve added a tip link.",
+            "Anyone can get it by entering their name and email — we email them the download link. Readers see a “Buy me a coffee” button on your page if you’ve added a tip link.",
           ],
           [
             "Paid",

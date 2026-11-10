@@ -48,9 +48,10 @@ export const requestResourceByEmail = createServerFn({ method: "POST" })
       p_guide_id: data.guideId,
       p_name: data.name,
       p_email: data.email,
-      p_buyer_id: buyerId ?? undefined,
+      // Null when the visitor isn’t signed in (generated types don’t mark it optional).
+      p_buyer_id: buyerId as string,
       p_token_hash: hash,
-      p_expires_at: expiresAt?.toISOString() ?? undefined,
+      p_expires_at: (expiresAt?.toISOString() ?? null) as string,
     });
     if (error) return { ok: false, error: error.message };
     const info = issued as { link_id: string; title: string; expires_at: string | null };
