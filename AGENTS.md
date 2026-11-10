@@ -28,3 +28,15 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+Marketplace guide details and the creator studio are top-level routes, with creator data and private files governed by Cloud row and object policies so shareable pages remain public and creator work stays scoped.
+
+AI writing help runs only in authenticated server functions (checking ownership of an editable version whenever one exists) and only fills the form; nothing is saved until the creator presses save, so model output never reaches a listing unreviewed.
+
+Creator dashboard lives under top-level /dashboard routes with a client-side sign-in and onboarding gate; product thumbnails sit in a private bucket readable publicly only for live products, so drafts never leak.
+
+Creator dashboard pages show saved data read-only and switch to a form only via an explicit Edit action, so accidental edits can't happen; the new-product form is the exception.
+
+Creator emails (welcome after onboarding, submit → admin + creator acknowledgement, approve → creator) are sent from authenticated server functions through the Resend connector after the database step succeeds, re-checking state server-side and using idempotency keys, so a failed email never blocks or duplicates a review action; the welcome email is marked sent in the account's app metadata so it goes out once.
+
+Creator help content lives in one data module rendered by the public /creator-help page, so help text, search and the welcome email link stay in sync with the dashboard's real field names and limits.

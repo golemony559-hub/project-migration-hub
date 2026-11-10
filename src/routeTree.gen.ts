@@ -10,33 +10,288 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CreatorRouteImport } from './routes/creator'
+import { Route as CreatorHelpRouteImport } from './routes/creator-help'
+import { Route as CreatorRulesRouteImport } from './routes/creator-rules'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as LibraryRouteImport } from './routes/library'
+import { Route as PoliciesRouteImport } from './routes/policies'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
+import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
+import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
+import { Route as DashboardProductsIndexRouteImport } from './routes/dashboard.products.index'
+import { Route as DashboardProductsGuideIdRouteImport } from './routes/dashboard.products.$guideId'
+import { Route as DashboardProductsNewRouteImport } from './routes/dashboard.products.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorRoute = CreatorRouteImport.update({
+  id: '/creator',
+  path: '/creator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorHelpRoute = CreatorHelpRouteImport.update({
+  id: '/creator-help',
+  path: '/creator-help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorRulesRoute = CreatorRulesRouteImport.update({
+  id: '/creator-rules',
+  path: '/creator-rules',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliciesRoute = PoliciesRouteImport.update({
+  id: '/policies',
+  path: '/policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const GuideSlugRoute = GuideSlugRouteImport.update({
+  id: '/guide/$slug',
+  path: '/guide/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProductsIndexRoute = DashboardProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProductsGuideIdRoute =
+  DashboardProductsGuideIdRouteImport.update({
+    id: '/products/$guideId',
+    path: '/products/$guideId',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardProductsNewRoute = DashboardProductsNewRouteImport.update({
+  id: '/products/new',
+  path: '/products/new',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/creator': typeof CreatorRoute
+  '/creator-help': typeof CreatorHelpRoute
+  '/creator-rules': typeof CreatorRulesRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/explore': typeof ExploreRoute
+  '/library': typeof LibraryRoute
+  '/policies': typeof PoliciesRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/guide/$slug': typeof GuideSlugRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/products/$guideId': typeof DashboardProductsGuideIdRoute
+  '/dashboard/products/new': typeof DashboardProductsNewRoute
+  '/dashboard/products/': typeof DashboardProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/creator': typeof CreatorRoute
+  '/creator-help': typeof CreatorHelpRoute
+  '/creator-rules': typeof CreatorRulesRoute
+  '/explore': typeof ExploreRoute
+  '/library': typeof LibraryRoute
+  '/policies': typeof PoliciesRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/guide/$slug': typeof GuideSlugRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/products/$guideId': typeof DashboardProductsGuideIdRoute
+  '/dashboard/products/new': typeof DashboardProductsNewRoute
+  '/dashboard/products': typeof DashboardProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/creator': typeof CreatorRoute
+  '/creator-help': typeof CreatorHelpRoute
+  '/creator-rules': typeof CreatorRulesRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/explore': typeof ExploreRoute
+  '/library': typeof LibraryRoute
+  '/policies': typeof PoliciesRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/guide/$slug': typeof GuideSlugRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/products/$guideId': typeof DashboardProductsGuideIdRoute
+  '/dashboard/products/new': typeof DashboardProductsNewRoute
+  '/dashboard/products/': typeof DashboardProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/creator'
+    | '/creator-help'
+    | '/creator-rules'
+    | '/dashboard'
+    | '/explore'
+    | '/library'
+    | '/policies'
+    | '/privacy'
+    | '/reset-password'
+    | '/terms'
+    | '/dashboard/analytics'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
+    | '/dashboard/transactions'
+    | '/guide/$slug'
+    | '/dashboard/'
+    | '/dashboard/products/$guideId'
+    | '/dashboard/products/new'
+    | '/dashboard/products/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/creator'
+    | '/creator-help'
+    | '/creator-rules'
+    | '/explore'
+    | '/library'
+    | '/policies'
+    | '/privacy'
+    | '/reset-password'
+    | '/terms'
+    | '/dashboard/analytics'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
+    | '/dashboard/transactions'
+    | '/guide/$slug'
+    | '/dashboard'
+    | '/dashboard/products/$guideId'
+    | '/dashboard/products/new'
+    | '/dashboard/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/creator'
+    | '/creator-help'
+    | '/creator-rules'
+    | '/dashboard'
+    | '/explore'
+    | '/library'
+    | '/policies'
+    | '/privacy'
+    | '/reset-password'
+    | '/terms'
+    | '/dashboard/analytics'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
+    | '/dashboard/transactions'
+    | '/guide/$slug'
+    | '/dashboard/'
+    | '/dashboard/products/$guideId'
+    | '/dashboard/products/new'
+    | '/dashboard/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  CreatorRoute: typeof CreatorRoute
+  CreatorHelpRoute: typeof CreatorHelpRoute
+  CreatorRulesRoute: typeof CreatorRulesRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  ExploreRoute: typeof ExploreRoute
+  LibraryRoute: typeof LibraryRoute
+  PoliciesRoute: typeof PoliciesRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  TermsRoute: typeof TermsRoute
+  GuideSlugRoute: typeof GuideSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +303,189 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator': {
+      id: '/creator'
+      path: '/creator'
+      fullPath: '/creator'
+      preLoaderRoute: typeof CreatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator-help': {
+      id: '/creator-help'
+      path: '/creator-help'
+      fullPath: '/creator-help'
+      preLoaderRoute: typeof CreatorHelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator-rules': {
+      id: '/creator-rules'
+      path: '/creator-rules'
+      fullPath: '/creator-rules'
+      preLoaderRoute: typeof CreatorRulesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/policies': {
+      id: '/policies'
+      path: '/policies'
+      fullPath: '/policies'
+      preLoaderRoute: typeof PoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/analytics': {
+      id: '/dashboard/analytics'
+      path: '/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof DashboardAnalyticsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/transactions': {
+      id: '/dashboard/transactions'
+      path: '/transactions'
+      fullPath: '/dashboard/transactions'
+      preLoaderRoute: typeof DashboardTransactionsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/guide/$slug': {
+      id: '/guide/$slug'
+      path: '/guide/$slug'
+      fullPath: '/guide/$slug'
+      preLoaderRoute: typeof GuideSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/products/': {
+      id: '/dashboard/products/'
+      path: '/products'
+      fullPath: '/dashboard/products/'
+      preLoaderRoute: typeof DashboardProductsIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/products/$guideId': {
+      id: '/dashboard/products/$guideId'
+      path: '/products/$guideId'
+      fullPath: '/dashboard/products/$guideId'
+      preLoaderRoute: typeof DashboardProductsGuideIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/products/new': {
+      id: '/dashboard/products/new'
+      path: '/products/new'
+      fullPath: '/dashboard/products/new'
+      preLoaderRoute: typeof DashboardProductsNewRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
+interface DashboardRouteChildren {
+  DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardTransactionsRoute: typeof DashboardTransactionsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardProductsGuideIdRoute: typeof DashboardProductsGuideIdRoute
+  DashboardProductsNewRoute: typeof DashboardProductsNewRoute
+  DashboardProductsIndexRoute: typeof DashboardProductsIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAnalyticsRoute: DashboardAnalyticsRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardTransactionsRoute: DashboardTransactionsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardProductsGuideIdRoute: DashboardProductsGuideIdRoute,
+  DashboardProductsNewRoute: DashboardProductsNewRoute,
+  DashboardProductsIndexRoute: DashboardProductsIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  CreatorRoute: CreatorRoute,
+  CreatorHelpRoute: CreatorHelpRoute,
+  CreatorRulesRoute: CreatorRulesRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  ExploreRoute: ExploreRoute,
+  LibraryRoute: LibraryRoute,
+  PoliciesRoute: PoliciesRoute,
+  PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  TermsRoute: TermsRoute,
+  GuideSlugRoute: GuideSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
