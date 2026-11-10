@@ -6,7 +6,7 @@ import { GOALS, groupForGoal, rankForGoal, type Goal } from "@/lib/goals";
 import { categoryToneClass } from "@/lib/category-colors";
 
 /** "What do you want to accomplish?" chips linking to goal recommendations. */
-export function GoalChips({ activeId }: { activeId?: string }) {
+export function GoalChips({ activeId }: { activeId?: string | undefined }) {
   return (
     <div className="goal-chips" aria-label="Pick a goal">
       <span className="goal-chips-label">
