@@ -43,6 +43,13 @@
       "when": 1794302763523,
       "tag": "0005_0005_creator_submission_acknowledgement",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794304332464,
+      "tag": "0006_email_download_links",
+      "breakpoints": true
     }
   ]
 }

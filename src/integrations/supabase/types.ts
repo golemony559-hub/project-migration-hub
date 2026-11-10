@@ -166,6 +166,82 @@ export type Database = {
         }
         Relationships: []
       }
+      download_links: {
+        Row: {
+          created_at: string
+          creator_id: string
+          download_count: number
+          email_sent_at: string | null
+          expires_at: string | null
+          first_downloaded_at: string | null
+          guide_id: string
+          id: string
+          last_downloaded_at: string | null
+          max_downloads: number
+          order_id: string
+          recipient_email: string
+          recipient_name: string
+          token_hash: string
+          version_id: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          download_count?: number
+          email_sent_at?: string | null
+          expires_at?: string | null
+          first_downloaded_at?: string | null
+          guide_id: string
+          id?: string
+          last_downloaded_at?: string | null
+          max_downloads?: number
+          order_id: string
+          recipient_email: string
+          recipient_name?: string
+          token_hash: string
+          version_id: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          download_count?: number
+          email_sent_at?: string | null
+          expires_at?: string | null
+          first_downloaded_at?: string | null
+          guide_id?: string
+          id?: string
+          last_downloaded_at?: string | null
+          max_downloads?: number
+          order_id?: string
+          recipient_email?: string
+          recipient_name?: string
+          token_hash?: string
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "download_links_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "guides"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "download_links_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "download_links_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "guide_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       entitlements: {
         Row: {
           buyer_id: string
@@ -435,6 +511,7 @@ export type Database = {
           currency_code: string
           description: string
           file_path: string | null
+          first_downloaded_at: string | null
           format: string
           how_to_use: string
           id: string
@@ -469,6 +546,7 @@ export type Database = {
           currency_code?: string
           description?: string
           file_path?: string | null
+          first_downloaded_at?: string | null
           format?: string
           how_to_use?: string
           id?: string
@@ -503,6 +581,7 @@ export type Database = {
           currency_code?: string
           description?: string
           file_path?: string | null
+          first_downloaded_at?: string | null
           format?: string
           how_to_use?: string
           id?: string
@@ -642,7 +721,9 @@ export type Database = {
       orders: {
         Row: {
           amount_cents: number
-          buyer_id: string
+          buyer_email: string | null
+          buyer_id: string | null
+          buyer_name: string
           created_at: string
           creator_id: string
           currency_code: string
@@ -659,7 +740,9 @@ export type Database = {
         }
         Insert: {
           amount_cents: number
-          buyer_id: string
+          buyer_email?: string | null
+          buyer_id?: string | null
+          buyer_name?: string
           created_at?: string
           creator_id: string
           currency_code: string
@@ -676,7 +759,9 @@ export type Database = {
         }
         Update: {
           amount_cents?: number
-          buyer_id?: string
+          buyer_email?: string | null
+          buyer_id?: string | null
+          buyer_name?: string
           created_at?: string
           creator_id?: string
           currency_code?: string
@@ -1018,6 +1103,7 @@ export type Database = {
         }
         Returns: string
       }
+      consume_download_link: { Args: { p_token_hash: string }; Returns: Json }
       create_pending_order: {
         Args: { p_guide_id: string; p_license_type: string }
         Returns: string
@@ -1039,6 +1125,25 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      issue_free_download: {
+        Args: {
+          p_buyer_id: string
+          p_email: string
+          p_expires_at: string
+          p_guide_id: string
+          p_name: string
+          p_token_hash: string
+        }
+        Returns: Json
+      }
+      issue_paid_download: {
+        Args: { p_expires_at: string; p_order_id: string; p_token_hash: string }
+        Returns: Json
+      }
+      mark_guide_first_download: {
+        Args: { p_guide_id: string }
         Returns: boolean
       }
       mark_order_unpaid: {
