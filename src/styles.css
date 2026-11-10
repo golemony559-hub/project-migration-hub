@@ -693,7 +693,7 @@
 .cat-tone-6 { --cat-ink: var(--cat-6); }
 .cat-tone-7 { --cat-ink: var(--cat-7); }
 .cat-tone-8 { --cat-ink: var(--cat-8); }
-.cat-tone, .guide-meta .cat-tone, .guide-detail-meta .cat-tone { color: var(--cat-ink); font-weight: 700; }
+.cat-tone:not(button) { color: var(--cat-ink); font-weight: 700; }
 .listing-tags.cat-tone li { color: var(--cat-ink); border-color: color-mix(in oklch, var(--cat-ink) 35%, transparent); }
 .tag-preview { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
 .tag-preview li { padding: 2px 8px; border: 1px solid color-mix(in oklch, var(--cat-ink, var(--market-teal)) 35%, transparent); border-radius: 999px; color: var(--cat-ink, var(--market-teal)); font-size: 11px; font-weight: 700; }
