@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794302440256,
+      "tag": "0000_0000_marketplace_profiles_guides",
+      "breakpoints": true
+    }
+  ]
 }
